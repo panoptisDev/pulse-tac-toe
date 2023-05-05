@@ -22,8 +22,9 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
 const fs = require('fs');
-const mnemonic = fs.readFileSync("../seed.txt", "utf-8").toString().trim();
-
+require("dotenv").config({path: "../.env"});
+//const mnemonic = fs.readFileSync("../seed.txt", "utf-8").toString().trim();
+//const mnemonic = fs.readFileSync("../.env", "utf-8").toString().trim();
 // console.log(new HDWalletProvider(mnemonic, 'wss://rpc-mumbai.maticvigil.com/ws/v1/4a69b6161fc0b7777eff3f5e49f047174b6e4e4a'))
 // .send({jsonrpc: '2.0', id: 1, params: [], })
 
@@ -93,6 +94,13 @@ module.exports = {
     moonbase: {
       provider: () => new HDWalletProvider(mnemonic, 'https://rpc.testnet.moonbeam.network'),
       network_id: 1287,
+    },
+    pulse: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, 'https://rpc.v4.testnet.pulsechain.com'),
+      network_id: 943,
+      timeoutBlocks: 200,
+      confirmations: 2,
+      skipDryRun: true,
     },
     dusty: {
       provider: () => dusty,
